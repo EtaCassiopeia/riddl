@@ -62,6 +62,7 @@ lazy val riddl = (project in file(".")).settings(
   `hugo-translator`,
   `hugo-git-check`,
   kalix,
+  codegen,
   examples,
   doc,
   riddlc,
@@ -116,6 +117,11 @@ lazy val `hugo-git-check`: Project = project.in(file("hugo-git-check"))
 
 lazy val kalix = project.in(file("kalix")).configure(C.mavenPublish).settings(
   name := "riddl-kalix-translator",
+  libraryDependencies ++= Dep.testing
+).dependsOn(language % "compile->compile", testkit % "test->compile")
+
+lazy val codegen = project.in(file("codegen")).configure(C.mavenPublish).settings(
+  name := "riddl-codegen-translator",
   libraryDependencies ++= Dep.testing
 ).dependsOn(language % "compile->compile", testkit % "test->compile")
 
